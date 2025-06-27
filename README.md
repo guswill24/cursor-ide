@@ -1,4 +1,4 @@
-# Curso de Cursor IDE por Platzi
+# Curso de Cursor IDE
 
 ## Profes
 
