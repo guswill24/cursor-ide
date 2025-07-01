@@ -1,11 +1,27 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
-from app.core.config import settings
+from typing import Annotated
+from app.core.config import Settings, get_settings
 from app.db.base import engine, get_db
 from app.services.course_service import CourseService
 
-app = FastAPI(title=settings.project_name, version=settings.version)
+app = FastAPI()
+
+
+def configure_app(settings: Annotated[Settings, Depends(get_settings)]) -> None:
+    """
+    Configure FastAPI app with settings
+    """
+    app.title = settings.project_name
+    app.version = settings.version
+
+
+# Configure app on startup
+@app.on_event("startup")
+async def startup_event():
+    settings = get_settings()
+    configure_app(settings)
 
 
 def get_course_service(db: Session = Depends(get_db)) -> CourseService:
@@ -21,7 +37,7 @@ def root() -> dict[str, str]:
 
 
 @app.get("/health")
-def health() -> dict[str, str | bool | int]:
+def health(settings: Annotated[Settings, Depends(get_settings)]) -> dict[str, str | bool | int]:
     """
     Health check endpoint that verifies:
     - Service status

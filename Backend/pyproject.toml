@@ -3,7 +3,7 @@ name = "platziflix-backend"
 version = "0.1.0"
 description = "Backend de Platziflix: plataforma de cursos online con FastAPI."
 authors = [
-    { name = "Equipo Platziflix", email = "dev@platziflix.com" }
+    { name = "Equipo guswillsan", email = "guswillsan@gmail.com" }
 ]
 requires-python = ">=3.11"
 dependencies = [

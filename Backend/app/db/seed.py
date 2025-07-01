@@ -7,7 +7,10 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from app.db.base import SessionLocal
 from app.models import Teacher, Course, Lesson, course_teachers
-from app.core.config import settings
+from app.core.config import get_settings
+
+# Get settings instance
+settings = get_settings()
 
 
 def create_sample_data():
